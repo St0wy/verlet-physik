@@ -30,6 +30,7 @@ add_custom_target(
 
 # Get SFML librarie
 find_package(OpenGL REQUIRED)
+find_package(spdlog REQUIRED)
 find_package(SFML COMPONENTS system window graphics main CONFIG REQUIRED)
 include_directories(include/)
 
@@ -45,6 +46,7 @@ add_dependencies(${EXECUTABLE_CUSTOM_NAME} DataTarget-${EXECUTABLE_CUSTOM_NAME})
 
 # Link libraries
 target_link_libraries(${EXECUTABLE_CUSTOM_NAME} PRIVATE sfml-main sfml-graphics sfml-audio sfml-window sfml-system)
+target_link_libraries(${EXECUTABLE_CUSTOM_NAME} PRIVATE spdlog::spdlog)
 
 if(MSVC)
 target_link_libraries(${EXECUTABLE_CUSTOM_NAME} PRIVATE sfml-main FLAC OpenAL OpenGL Vorbis)

@@ -1,6 +1,7 @@
 #include "DemoWindow.hpp"
 
 #include "Consts.hpp"
+#include "VerletSolver.hpp"
 
 #include <iostream>
 
@@ -21,9 +22,14 @@ void stw::DemoWindow::StartMainLoop()
 	shape->setFillColor(colors::ENGLISH_VIOLET);
 	objects_->push_back(VerletObject(std::move(shape)));
 	objects_->at(0).positionCurrent = centerScreen;
+	objects_->at(0).positionOld = centerScreen;
 
+	const VerletSolver solver(objects_);
+
+	sf::Clock clock;
 	while (window_.isOpen())
 	{
+		sf::Time deltaTime = clock.restart();
 
 		// Handle events
 		sf::Event event{};
@@ -36,6 +42,7 @@ void stw::DemoWindow::StartMainLoop()
 		if (window_.hasFocus())
 		{
 			// Step the physics
+			solver.Update(deltaTime.asSeconds());
 		}
 
 		// Clear the window

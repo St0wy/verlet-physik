@@ -14,5 +14,9 @@ namespace stw
 
 		explicit VerletObject(std::unique_ptr<sf::Shape> shape);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+		void UpdatePosition(const float deltaTime);
+
+		void Accelerate(const sf::Vector2f acc);
 	};
 }

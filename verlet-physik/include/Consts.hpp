@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 namespace stw
 {
 	constexpr unsigned FRAMERATE = 60;
@@ -9,7 +11,7 @@ namespace stw
 	constexpr int WINDOW_WIDTH = 16 * WINDOW_SCALE;
 	constexpr int WINDOW_HEIGHT = 9 * WINDOW_SCALE;
 
-	constexpr float GRAVITY = 9.81f;
+	constexpr float G = 9.81f;
 
 	namespace colors
 	{
