@@ -6,8 +6,13 @@
 stw::Spawner::Spawner(
 	std::shared_ptr<std::vector<VerletObject>> objects,
 	const sf::Vector2f pos,
-	const float timeToSpawn) :
-	position_(pos), timeToSpawn_(timeToSpawn), spawnTimer_(), objects_(std::move(objects))
+	const float timeToSpawn,
+	const sf::Vector2f shootVector) :
+	objects_(std::move(objects)),
+	position_(pos),
+	timeToSpawn_(timeToSpawn),
+	spawnTimer_(),
+	shootVector_(shootVector)
 {
 }
 
@@ -24,6 +29,6 @@ void stw::Spawner::Update(const float deltaTime)
 
 void stw::Spawner::Spawn() const
 {
-	constexpr float shapeRadius = 30.0f;
-	objects_->push_back(VerletObject(shapeRadius, colors::ENGLISH_VIOLET, position_));
+	constexpr float shapeRadius = 10.0f;
+	objects_->push_back(VerletObject(position_ + shootVector_, position_, shapeRadius, colors::ENGLISH_VIOLET));
 }

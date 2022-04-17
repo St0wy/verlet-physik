@@ -38,8 +38,8 @@ include_directories(include/)
 file(GLOB_RECURSE PROJECT_SRC src/*.cpp include/*.h include/*.hpp)
 
 # TODO: use the line with "win32" in it if you don't want the console
-add_executable(${EXECUTABLE_CUSTOM_NAME} ${PROJECT_SRC})
-# add_executable(${EXECUTABLE_CUSTOM_NAME} win32 ${PROJECT_SRC})
+# add_executable(${EXECUTABLE_CUSTOM_NAME} ${PROJECT_SRC})
+add_executable(${EXECUTABLE_CUSTOM_NAME} WIN32 ${PROJECT_SRC})
 
 # Add data dependencies
 add_dependencies(${EXECUTABLE_CUSTOM_NAME} DataTarget-${EXECUTABLE_CUSTOM_NAME})

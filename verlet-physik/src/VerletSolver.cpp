@@ -8,10 +8,15 @@ stw::VerletSolver::VerletSolver(std::shared_ptr<std::vector<VerletObject>> objec
 
 void stw::VerletSolver::Update(const float deltaTime) const
 {
-	ApplyGravity();
-	ApplyConstraints();
-	SolveCollisions();
-	UpdatePositions(deltaTime);
+	constexpr std::size_t subSteps = 4;
+	const float subDeltaTime = deltaTime / static_cast<float>(subSteps);
+	for (std::size_t i = 0; i < subSteps; ++i)
+	{
+		ApplyGravity();
+		ApplyConstraints();
+		SolveCollisions();
+		UpdatePositions(subDeltaTime);
+	}
 }
 
 void stw::VerletSolver::UpdatePositions(const float deltaTime) const

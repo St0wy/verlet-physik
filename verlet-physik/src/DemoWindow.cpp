@@ -20,7 +20,12 @@ void stw::DemoWindow::StartMainLoop()
 	backgroundCircle.setPosition(CENTER_SCREEN.x, CENTER_SCREEN.y);
 	backgroundCircle.setFillColor(colors::RAISIN_BLACK);
 
-	Spawner spawner(objects_, sf::Vector2f(CENTER_SCREEN.x + 10, CENTER_SCREEN.y - 200), 0.5f);
+	Spawner spawner(
+		objects_,
+		sf::Vector2f(CENTER_SCREEN.x + 200, CENTER_SCREEN.y - 200),
+		0.1f,
+		sf::Vector2f(-0.5f, 2.0f)
+	);
 
 	const VerletSolver solver(objects_);
 

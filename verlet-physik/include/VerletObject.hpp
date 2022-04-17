@@ -17,7 +17,15 @@ namespace stw
 		std::shared_ptr<sf::CircleShape> shape;
 
 		explicit VerletObject(std::unique_ptr<sf::CircleShape> shape);
-		explicit VerletObject(float radius = DEFAULT_RADIUS, sf::Color color = colors::FLAME, sf::Vector2f pos = {});
+		explicit VerletObject(
+			sf::Vector2f pos = {},
+			float radius = DEFAULT_RADIUS,
+			sf::Color color = colors::FLAME);
+		explicit VerletObject(
+			sf::Vector2f pos,
+			sf::Vector2f oldPos,
+			float radius = DEFAULT_RADIUS,
+			sf::Color color = colors::FLAME);
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

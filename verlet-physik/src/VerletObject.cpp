@@ -8,8 +8,14 @@ stw::VerletObject::VerletObject(std::unique_ptr<sf::CircleShape> shape) :
 
 }
 
-stw::VerletObject::VerletObject(float radius, const sf::Color color, const sf::Vector2f pos) :
-	positionCurrent(pos), positionOld(pos)
+stw::VerletObject::VerletObject(const sf::Vector2f pos, const float radius, const sf::Color color) :
+	VerletObject(pos, pos, radius, color)
+{
+
+}
+
+stw::VerletObject::VerletObject(const sf::Vector2f pos, const sf::Vector2f oldPos, float radius, const sf::Color color) :
+	positionCurrent(pos), positionOld(oldPos)
 {
 	shape = std::make_shared<sf::CircleShape>(radius);
 	shape->setFillColor(color);
