@@ -2,10 +2,18 @@
 
 #include "spdlog/spdlog.h"
 
-stw::VerletObject::VerletObject(std::unique_ptr<sf::Shape> shape) :
+stw::VerletObject::VerletObject(std::unique_ptr<sf::CircleShape> shape) :
 	shape(std::move(shape))
 {
 
+}
+
+stw::VerletObject::VerletObject(float radius, const sf::Color color, const sf::Vector2f pos) :
+	positionCurrent(pos), positionOld(pos)
+{
+	shape = std::make_shared<sf::CircleShape>(radius);
+	shape->setFillColor(color);
+	shape->setOrigin(radius, radius);
 }
 
 void stw::VerletObject::draw(sf::RenderTarget& target, const sf::RenderStates states) const
@@ -18,18 +26,16 @@ void stw::VerletObject::UpdatePosition(const float deltaTime)
 {
 	const sf::Vector2f velocity = positionCurrent - positionOld;
 
+	//spdlog::debug("\n");
+	//spdlog::debug("Velocity : X:{0}, Y:{1}", velocity.x, velocity.y);
+	//spdlog::debug("positionCurrent : X:{0}, Y:{1}", positionCurrent.x, positionCurrent.y);
+	//spdlog::debug("positionOld : X:{0}, Y:{1}", positionOld.x, positionOld.y);
+
 	// Save current position
 	positionOld = positionCurrent;
 
 	// Perform verlet integration
 	positionCurrent += velocity + acceleration * deltaTime * deltaTime;
-
-	spdlog::debug("\n");
-	spdlog::debug(deltaTime);
-	spdlog::debug("PositionCurrent : X:{0}, Y:{1}", positionCurrent.x, positionCurrent.y);
-	spdlog::debug("PositionOld : X:{0}, Y:{1}", positionOld.x, positionOld.y);
-	spdlog::debug("Velocity : X:{0}, Y:{1}", velocity.x, velocity.y);
-	spdlog::debug("Acceleration :  X:{0}, Y:{1}", acceleration.x, acceleration.y);
 
 	// Reset acceleration
 	acceleration = {};
@@ -38,4 +44,9 @@ void stw::VerletObject::UpdatePosition(const float deltaTime)
 void stw::VerletObject::Accelerate(const sf::Vector2f acc)
 {
 	acceleration += acc;
+}
+
+float stw::VerletObject::GetRadius() const
+{
+	return shape->getRadius();
 }

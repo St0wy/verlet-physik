@@ -2,8 +2,7 @@
 
 #include "Consts.hpp"
 #include "VerletSolver.hpp"
-
-#include <iostream>
+#include "Spawner.hpp"
 
 stw::DemoWindow::DemoWindow() :
 	window_(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_NAME, sf::Style::Close),
@@ -15,14 +14,13 @@ stw::DemoWindow::DemoWindow() :
 
 void stw::DemoWindow::StartMainLoop()
 {
-	const sf::Vector2f centerScreen = { WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f };
-
 	// Create static object
-	auto shape = std::make_unique<sf::CircleShape>(50.f);
-	shape->setFillColor(colors::ENGLISH_VIOLET);
-	objects_->push_back(VerletObject(std::move(shape)));
-	objects_->at(0).positionCurrent = centerScreen;
-	objects_->at(0).positionOld = centerScreen;
+	sf::CircleShape backgroundCircle(CONSTRAINT_RADIUS, 100);
+	backgroundCircle.setOrigin(CONSTRAINT_RADIUS, CONSTRAINT_RADIUS);
+	backgroundCircle.setPosition(CENTER_SCREEN.x, CENTER_SCREEN.y);
+	backgroundCircle.setFillColor(colors::RAISIN_BLACK);
+
+	Spawner spawner(objects_, sf::Vector2f(CENTER_SCREEN.x + 10, CENTER_SCREEN.y - 200), 0.5f);
 
 	const VerletSolver solver(objects_);
 
@@ -43,12 +41,14 @@ void stw::DemoWindow::StartMainLoop()
 		{
 			// Step the physics
 			solver.Update(deltaTime.asSeconds());
+			spawner.Update(deltaTime.asSeconds());
 		}
 
 		// Clear the window
-		window_.clear(colors::RAISIN_BLACK);
+		window_.clear(colors::DARK_PURPLE);
 
-		// Render all the entities
+		// Render
+		window_.draw(backgroundCircle);
 		for (const auto& obj : *objects_)
 		{
 			window_.draw(obj);

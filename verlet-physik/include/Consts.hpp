@@ -7,9 +7,11 @@ namespace stw
 	constexpr unsigned FRAMERATE = 60;
 	constexpr char WINDOW_NAME[] = "Verlet Physik";
 
-	constexpr int WINDOW_SCALE = 100;
-	constexpr int WINDOW_WIDTH = 16 * WINDOW_SCALE;
-	constexpr int WINDOW_HEIGHT = 9 * WINDOW_SCALE;
+	constexpr int WINDOW_WIDTH = 800;
+	constexpr int WINDOW_HEIGHT = 800;
+	static const sf::Vector2f CENTER_SCREEN = { WINDOW_WIDTH / 2.0f, WINDOW_HEIGHT / 2.0f };
+
+	constexpr float CONSTRAINT_RADIUS = WINDOW_HEIGHT / 2.0f * 0.8f;
 
 	constexpr float G = 9.81f;
 

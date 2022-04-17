@@ -20,5 +20,7 @@ namespace stw
 
 		void UpdatePositions(float deltaTime) const;
 		void ApplyGravity() const;
+		void ApplyConstraints() const;
+		void SolveCollisions() const;
 	};
 }
