@@ -17,6 +17,7 @@ namespace stw
 
 		void Update(float deltaTime);
 		void Spawn() const;
+		void Start();
 
 	private:
 		std::shared_ptr<std::vector<VerletObject>> objects_;
@@ -24,5 +25,6 @@ namespace stw
 		float timeToSpawn_;
 		float spawnTimer_;
 		sf::Vector2f shootVector_;
+		bool isStarted_;
 	};
 }

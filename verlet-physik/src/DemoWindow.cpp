@@ -39,15 +39,20 @@ void stw::DemoWindow::StartMainLoop()
 		while (window_.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
+			{
 				window_.close();
+			}
 		}
 
-		if (window_.hasFocus())
+		// Check mouse
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
-			// Step the physics
-			solver.Update(deltaTime.asSeconds());
-			spawner.Update(deltaTime.asSeconds());
+			spawner.Start();
 		}
+
+		// Step the physics
+		solver.Update(deltaTime.asSeconds());
+		spawner.Update(deltaTime.asSeconds());
 
 		// Clear the window
 		window_.clear(colors::DARK_PURPLE);

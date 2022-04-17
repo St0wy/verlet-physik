@@ -12,12 +12,15 @@ stw::Spawner::Spawner(
 	position_(pos),
 	timeToSpawn_(timeToSpawn),
 	spawnTimer_(),
-	shootVector_(shootVector)
+	shootVector_(shootVector),
+	isStarted_(false)
 {
 }
 
 void stw::Spawner::Update(const float deltaTime)
 {
+	if (!isStarted_) return;
+
 	spawnTimer_ += deltaTime;
 
 	if (spawnTimer_ >= timeToSpawn_)
@@ -31,4 +34,9 @@ void stw::Spawner::Spawn() const
 {
 	constexpr float shapeRadius = 10.0f;
 	objects_->push_back(VerletObject(position_ + shootVector_, position_, shapeRadius, colors::ENGLISH_VIOLET));
+}
+
+void stw::Spawner::Start()
+{
+	isStarted_ = true;
 }

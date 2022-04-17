@@ -8,7 +8,7 @@ stw::VerletSolver::VerletSolver(std::shared_ptr<std::vector<VerletObject>> objec
 
 void stw::VerletSolver::Update(const float deltaTime) const
 {
-	constexpr std::size_t subSteps = 4;
+	constexpr std::size_t subSteps = 8;
 	const float subDeltaTime = deltaTime / static_cast<float>(subSteps);
 	for (std::size_t i = 0; i < subSteps; ++i)
 	{
